@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+    <link rel="stylesheet" href="assets/css/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+</head>
+<body>
+    <!-- HEADER -->
+	<div class="header">
+		<h1 style="margin-left: 34px; font-size: 30px; padding: 16px 0px 16px 0px;">SCHOOL V1.0</h1>
+	</div>
+    
+    <!-- LOGOUT BUTTON -->
+    <!-- HAMBURGER MENU ICON -->
+    <div ng-controller="Style">
+        <div id="main" ng-style="mainWidth" style="z-index: 1; transition: width 0.5s ease;">
+            <span ng-click="toggleNav()" style="font-size: 30px; cursor: pointer; margin-left: 30px;">&#9776;</span>
+            <div ng-controller="logoutController">
+                <button id="logoutBtn" ng-click="logout()" style="position: absolute; top: 77x;  right: 67px; font-size: 23px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+         
+        <!-- HAMBURGER MENU -->
+        <div id="mySidenav" class="sidenav"  ng-style="sidenavStyle" style="margin-top: 1px; color: black;">
+            <a href="javascript:void(0)" class="closeNav" ng-click="closeNav()" style="color:white; font-size: 30px; text-align: right; margin-right: 35px;">&times;</a>
+            <div class="menu-items" style="transition: none; text-align: left; margin-left: 20px;">
+                <a href="#!/student" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">STUDENT</a>
+                <a ng-href="#!/subject" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">SUBJECT</a>
+                <a ng-href="#!/enrollment" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">ENROLLMENT</a>
+                <a ng-href="#!/report" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">REPORT</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- LEFT SIDE FORM -->     
+        <div class="left">
+            <form>
+                <div style="margin-left: 24px; margin-top: 10px;" class="parent-container">
+                    <label for=""><i class="fas fa-id-card" style="font-size: 18px;"></i>ID NO</label><br>
+                    <input type="text" id="idno" name="idno"><br><br>
+                    <label for=""><i class="fas fa-user" style="font-size: 18px ;"></i>LASTNAME</label><br>
+                    <input type="text" id="lastname" name="lastname" style="font-size: 18px ;"><br><br>
+                    <label for=""><i class="fas fa-user" style="font-size: 18px ;"></i> FIRSTNAME</label><br>
+                    <input type="text" id="firstname" name="firstname" ><br>
+                    <div class="input-group">
+                        <label for=""><i class="fas fa-book" style="font-size: 18px;"></i> Course</label><br>
+                        <input type="text" id="course" name="course">
+                        <select ng-model="selectedCourse">
+                            <option ng-repeat="course in courses" value="{{ course }}">{{ course }}</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for=""><i class="fas fa-graduation-cap" style="font-size: 18px;"></i> Level</label><br>
+                        <input type="text" id="level" name="level"> 
+                        <select  ng-model="selectedLevel">
+                            <option ng-repeat="level in levels" value="{{ level }}">{{ level }}</option>
+                        </select>
+                    </div>
+
+                    <!-- SAVE AND CANCEL BUTTONS -->
+                    <div class="form-buttons">
+                        <button type="submit">Save</button>
+                        <button type="button">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT SIDE FORM -->
+        <div class="right">
+            <!-- SEARCH BAR -->
+            <div class="search-container">
+                <label for="">PAGES</label>
+                <select ng-model="pageSize">
+                    <option ng-repeat="size in pagesizes" value="{{ size }}"></option>
+                </select>
+                <!-- SEARCH BUTTON -->
+                <div style="margin-right: 4%; margin-left: 100px;">
+                    <div class="searchy">
+                        <input type="text" placeholder="Search">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- TABLE -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID No</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Level</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Durano, Dennis</td>
+                        <td>BSCPE</td>
+                        <td>2</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Yes, No</td>
+                        <td>BSIT</td>
+                        <td>4</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Bravo, Alpha</td>
+                        <td>BSMA</td>
+                        <td>3</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- ANGLE DOUBLE BUTTONS -->
+            <div class="btn-container">
+                <button><i class="fas fa-angle-double-left"></i></button>
+                <button><i class="fas fa-angle-double-right"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

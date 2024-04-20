@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="assets/css/subject.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+</head>
+<body ng-controller="myapp">
+     <!-- HEADER -->
+	<div class="header">
+		<h1 style="margin-left: 34px; font-size: 30px; padding: 16px 0px 16px 0px;">SCHOOL V1.0</h1>
+	</div>
+    
+   <!-- LOGOUT BUTTON -->
+    <!-- HAMBURGER MENU ICON -->
+    <div ng-controller="Style">
+        <div id="main" ng-style="mainWidth" style="z-index: 1; transition: width 0.5s ease;">
+            <span ng-click="toggleNav()" style="font-size: 30px; cursor: pointer; margin-left: 30px;">&#9776;</span>
+            <div ng-controller="logoutController">
+                <button id="logoutBtn" ng-click="logout()" style="position: absolute; top: 77x;  right: 67px; font-size: 23px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+         
+        <!-- HAMBURGER MENU -->
+        <div id="mySidenav" class="sidenav"  ng-style="sidenavStyle" style="margin-top: 1px; color: black;">
+            <a href="javascript:void(0)" class="closeNav" ng-click="closeNav()" style="color:white; font-size: 30px; text-align: right; margin-right: 35px;">&times;</a>
+            <div class="menu-items" style="transition: none; text-align: left; margin-left: 20px;">
+                <a href="#!/student" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">STUDENT</a>
+                <a ng-href="#!/subject" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">SUBJECT</a>
+                <a ng-href="#!/enrollment" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">ENROLLMENT</a>
+                <a ng-href="#!/report" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">REPORT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- LEFT SIDE FORM -->
+        <div class="left">
+            <form>
+                <div style="margin-left: 24px; margin-top: 17px;" class="parent-container">
+                    <label for="edpcode"><i class="fas fa-id-card" style="font-size: 18px;"></i> EDP CODE</label><br>
+                    <input type="text" id="edpcode" name="edpcode"><br><br>
+                    <label for="subjectcode"><i class="fas fa-user" style="font-size: 18px ;"></i> SUBJECT CODE</label><br>
+                    <input type="text" id="subjectcode" name="subjectcode" style="font-size: 18px ;"><br><br>  
+                    <label for="time"><i class="fas fa-user" style="font-size: 18px ;"></i> TIME</label><br>
+                    <input type="text" id="time" name="time" ><br>
+
+                    <!-- CHECKBOX ~~ SCHEDULE ~~ MONDAY-FRIDAY -->
+                    <label for="">DAYS</label>
+                    <div class="checkbox-container-parent">
+                        <div class="checkbox-container">
+                            <label for="monday">M</label><br>
+                            <input type="checkbox" id="monday" name="monday"> <br>
+                        </div> 
+                        <div class="checkbox-container">
+                            <label for="tuesday">T</label><br>
+                            <input type="checkbox" id="tuesday" name="tuesday"> <br>
+                        </div>
+                        <div class="checkbox-container">
+                            <label for="wednesday">W</label><br>
+                            <input type="checkbox" id="wednesday" name="wednesday"> <br>
+                        </div>
+                        <div class="checkbox-container">
+                            <label for="thursday">TH</label><br>
+                            <input type="checkbox" id="thursday" name="thursday"> <br>
+                        </div>
+                        <div class="checkbox-container">
+                            <label for="friday">F</label><br>
+                            <input type="checkbox" id="friday" name="friday"> <br>
+                        </div>
+                        <div class="checkbox-container">
+                            <label for="saturday">SAT</label><br>
+                            <input type="checkbox" id="saturday" name="saturday"> <br>
+                        </div>
+                    </div>
+
+                    <br>
+                    <label for="time"><i class="fas fa-user" style="font-size: 18px ;"></i> ROOM</label><br>
+                    <input type="text" id="time" name="time" ><br>
+                    
+                    <!-- SAVE AND CANCEL BUTTONS -->
+                    <div class="form-buttons">
+                        <button>Save</button>
+                        <button>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT SIDE FORM -->
+        <div class="right">
+            <!-- SEARCH BAR -->
+            <div class="search-container">
+                <label for="pages">PAGES</label>
+                <select ng-model="pageSize">
+                    <option ng-repeat="size in pagesizes" value="{{ size }}"></option>
+                </select>
+                <!-- SEARCH BUTTON -->
+                <div style="margin-right: 4%; margin-left: 100px;">
+                    <div class="searchy">
+                        <input type="text" placeholder="Search">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>   
+            </div>
+            <!-- TABLE -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>EdpNo</th>
+                        <th>Subject Code</th>
+                        <th>Time-Day</th>
+                        <th>Room</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Durano, Dennis</td>
+                        <td>BSCPE</td>
+                        <td>2</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Yes, No</td>
+                        <td>BSIT</td>
+                        <td>4</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Bravo, Alpha</td>
+                        <td>BSMA</td>
+                        <td>3</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- ANGLE DOUBLE BUTTONS -->
+            <div class="btn-container">
+                <button><i class="fas fa-angle-double-left"></i></button>
+                <button><i class="fas fa-angle-double-right"></i></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var isNavOpen = false;
+            var sidenav = document.getElementById("mySidenav");
+            var main = document.getElementById("main");
+            var content = document.getElementById("contentTemplate");
+            var toggleBtn = document.getElementById("toggleBtn");
+            var closeBtn = document.getElementById("closeBtn");
+            var studentBtn = document.getElementById("studentBtn");
+            var subjectBtn = document.getElementById("subjectBtn");
+            var enrollmentBtn = document.getElementById("enrollmentBtn");
+            var reportBtn = document.getElementById("reportBtn");
+
+            function openNav() {
+                sidenav.style.width = "198px";
+                document.querySelector('.left').style.marginLeft = "198px";
+                formLeft.style.width = "calc(100% - 198px)";
+                document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+                isNavOpen = true;
+            }
+
+            function closeNav() {
+                sidenav.style.width = "0";
+                document.querySelector('.left').style.marginLeft = "0";
+                document.body.style.backgroundColor = "white";
+                formLeft.style.width = "100%";
+                isNavOpen = false;
+            }
+
+
+            toggleBtn.addEventListener("click", function() {
+                if (isNavOpen) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            });
+
+            closeBtn.addEventListener("click", function() {
+                closeNav();
+            });
+        });
+    </script>
+</body>
+</html>

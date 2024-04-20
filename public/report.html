@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="assets/css/enrollment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+</head>
+<body ng-controller="myapp">
+     <!-- HEADER -->
+	<div class="header">
+		<h1 style="margin-left: 34px; font-size: 30px; padding: 16px 0px 16px 0px;">SCHOOL V1.0</h1>
+	</div>
+    
+    <div id="main" style="z-index: 1; transition: width 0.5s ease;">
+        <span id="toggleBtn" style="font-size: 30px; cursor: pointer">&#9776;</span>
+        <button id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <!-- LOGOUT BUTTON -->
+    <!-- HAMBURGER MENU ICON -->
+    <div ng-controller="Style">
+        <div id="main" ng-style="mainWidth" style="z-index: 1; transition: width 0.5s ease;">
+            <span ng-click="toggleNav()" style="font-size: 30px; cursor: pointer; margin-left: 30px;">&#9776;</span>
+            <div ng-controller="logoutController">
+                <button id="logoutBtn" ng-click="logout()" style="position: absolute; top: 77x;  right: 67px; font-size: 23px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+         
+        <!-- HAMBURGER MENU -->
+        <div id="mySidenav" class="sidenav"  ng-style="sidenavStyle" style="margin-top: 1px; color: black;">
+            <a href="javascript:void(0)" class="closeNav" ng-click="closeNav()" style="color:white; font-size: 30px; text-align: right; margin-right: 35px;">&times;</a>
+            <div class="menu-items" style="transition: none; text-align: left; margin-left: 20px;">
+                <a href="#!/student" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">STUDENT</a>
+                <a ng-href="#!/subject" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">SUBJECT</a>
+                <a ng-href="#!/enrollment" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">ENROLLMENT</a>
+                <a ng-href="#!/report" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">REPORT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="sleepy">
+        <!-- RIGHT SIDE FORM -->
+        <div class="right">
+            <div class="search-container">
+                <!-- Search EDP CODE -->
+                <div class="edp">
+                    <div class="searchy">
+                        <input type="text" placeholder="Search EDP CODE">
+                        <button>SEARCH</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="delete">
+                    <button style="padding: 6px 14px 6px 14px; background-color: #A83332; font-size: 1em; border: none;">DELETE</button>
+                </div>
+            </div>
+            <!-- TABLE -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>EDP Code</th>
+                        <th>Subject Code</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                        <th>Room</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Durano, Dennis</td>
+                        <td>BSCPE</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Yes, No</td>
+                        <td>BSIT</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Bravo, Alpha</td>
+                        <td>BSMA</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td class="action-buttons">
+                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var isNavOpen = false;
+            var sidenav = document.getElementById("mySidenav");
+            var sleepy = document.getElementById("sleepy");
+            var tableWrapper = document.getElementById("tableWrapper");
+            var toggleBtn = document.getElementById("toggleBtn");
+            var closeBtn = document.getElementById("closeBtn");
+
+            function openNav() {
+                sidenav.style.width = "198px"; 
+                sleepy.style.marginLeft = "calc(100% - 93%)";
+                tableWrapper.style.marginLeft = "10px";
+                isNavOpen = true;
+            }
+
+            function closeNav() {
+                sidenav.style.width = "0";
+                sleepy.style.marginLeft = "0";
+                tableWrapper.style.marginLeft = "0";
+                isNavOpen = false;
+            }
+
+            toggleBtn.addEventListener("click", function() {
+                if (isNavOpen) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            });
+
+            closeBtn.addEventListener("click", function() {
+                closeNav();
+            });
+        });
+    </script>
+</body>
+</html>
