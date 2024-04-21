@@ -10,42 +10,39 @@
 		<h1 style="margin-left: 34px; font-size: 30px; padding: 16px 0px 16px 0px;">SCHOOL V1.0</h1>
 	</div>
     
-    <!-- LOGOUT BUTTON -->
-    <!-- HAMBURGER MENU ICON -->
-    <div ng-controller="Style">
-        <div id="main" ng-style="mainWidth" style="z-index: 1; transition: width 0.5s ease;">
-            <span ng-click="toggleNav()" style="font-size: 30px; cursor: pointer; margin-left: 30px;">&#9776;</span>
-            <div ng-controller="logoutController">
-                <button id="logoutBtn" ng-click="logout()" style="position: absolute; top: 77x;  right: 67px; font-size: 23px;">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-            </div>
+    <div id="main" style="z-index: 1; transition: width 0.5s ease;">
+        <span id="toggleBtn" style="font-size: 30px; cursor: pointer">&#9776;</span>
+        <div ng-controller="logoutController">
+            <button id="logoutBtn" ng-click="logout()" style="position: absolute; top: 77x;  right: 67px; font-size: 23px;">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
         </div>
-         
-        <!-- HAMBURGER MENU -->
-        <div id="mySidenav" class="sidenav"  ng-style="sidenavStyle" style="margin-top: 1px; color: black;">
-            <a href="javascript:void(0)" class="closeNav" ng-click="closeNav()" style="color:white; font-size: 30px; text-align: right; margin-right: 35px;">&times;</a>
-            <div class="menu-items" style="transition: none; text-align: left; margin-left: 20px;">
-
-                <!-- <a href="#/student">STUDENT</a>
-                <a href="#/subject">SUBJECT</a>
-                <a href="#/enrollment">ENROLLMENT</a>
-                <a href="#/report">REPORT</a> -->
-                <a href="#/student" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">STUDENT</a>
-                <a ng-href="#/subject" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">SUBJECT</a>
-                <a href="#/enrollment" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">ENROLLMENT</a>
-                <a href="#/report" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">REPORT</a>
-                <!-- <form action="/enrollment" method="get">
-                    <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
-                        ENROLLMENT
-                    </button>   
-                </form>
-                <form action="/REPORT" method="get">
-                    <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
-                        REPORT
-                    </button>
-                </form> -->
-            </div>
+    </div>
+    
+    <!-- HAMBURGER MENU -->
+    <div id="mySidenav" class="sidenav" style="margin-top: 1px; color: black;">
+        <a href="javascript:void(0)" class="closebtn" id="closeBtn" style="color: white;">&times;</a>
+        <div class="menu-items" style="transition: none; text-align: center;">
+            <form action="/student" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">
+                    STUDENT
+                </button>
+            </form>
+            <form action="/subject" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
+                    SUBJECT
+                </button>
+            </form>
+            <form action="/enrollment" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
+                    ENROLLMENT
+                </button>
+            </form>
+            <form action="/REPORT" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
+                    REPORT
+                </button>
+            </form>
         </div>
     </div>
 

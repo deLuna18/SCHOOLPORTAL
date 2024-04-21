@@ -1,32 +1,26 @@
 const express = require("express");
 const path = require("path");
+const users = require("./api/users");
+const students = require("./api/students")
+const subjects = require("./api/subjects")
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({"extended":true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+//middleware
+app.use("/api/users",users);
+app.use("/api/students",students);
+app.use("/api/subjects",subjects)
 
-// VERIFICATION 
-const users = [
-    { username: 'user@uc.com', password: '12345' },
-    { username: 'alexa', password: 'thegreat' },
-    { username: 'cedy', password: 'marie' }
-];
-
+require("dotenv").config()
 const port = process.env.PORT || 4321;
 
-// LOGIN
-app.post("/login", (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(user => user.username === username && user.password === password);
-    if (user) {
-        res.status(200).send("Login successful!");
-    } else {
-        res.status(400).send("Invalid Credentials. Please try again!");
-    }
+// CONTENT ROUTES
+app.get("/main", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/main.html"));
 });
 
-// ROUTES
 app.get("/student", (req, res) => {
     res.sendFile(path.join(__dirname, "public/student.html"));
 });
@@ -43,12 +37,11 @@ app.get("/report", (req, res) => {
     res.sendFile(path.join(__dirname, "public/report.html"));
 });
 
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/login.html"));
+//default route
+app.get("/",(req,res)=>{
+	res.redirect("/login.html");
 });
 
-//LISTENING AT PORT
-const server = app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+app.listen(port,()=>{
+	console.log(`listening at port ${port}`);
 });

@@ -4,33 +4,42 @@
     <link rel="stylesheet" href="assets/css/subject.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
 </head>
-<body ng-controller="myapp">
+<body>
      <!-- HEADER -->
 	<div class="header">
 		<h1 style="margin-left: 34px; font-size: 30px; padding: 16px 0px 16px 0px;">SCHOOL V1.0</h1>
 	</div>
     
-   <!-- LOGOUT BUTTON -->
-    <!-- HAMBURGER MENU ICON -->
-    <div ng-controller="Style">
-        <div id="main" ng-style="mainWidth" style="z-index: 1; transition: width 0.5s ease;">
-            <span ng-click="toggleNav()" style="font-size: 30px; cursor: pointer; margin-left: 30px;">&#9776;</span>
-            <div ng-controller="logoutController">
-                <button id="logoutBtn" ng-click="logout()" style="position: absolute; top: 77x;  right: 67px; font-size: 23px;">
-                    <i class="fas fa-sign-out-alt"></i>
+    <div id="main" style="z-index: 1; transition: width 0.5s ease;">
+        <span id="toggleBtn" style="font-size: 30px; cursor: pointer">&#9776;</span>
+        <button id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+    <!-- HAMBURGER MENU -->
+    <div id="mySidenav" class="sidenav" style="margin-top: 1px; color: black;">
+        <a href="javascript:void(0)" class="closebtn" id="closeBtn" style="color: white;">&times;</a>
+        <div class="menu-items" style="transition: none; text-align: center;">
+            <form action="/student" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">
+                    STUDENT
                 </button>
-            </div>
-        </div>
-         
-        <!-- HAMBURGER MENU -->
-        <div id="mySidenav" class="sidenav"  ng-style="sidenavStyle" style="margin-top: 1px; color: black;">
-            <a href="javascript:void(0)" class="closeNav" ng-click="closeNav()" style="color:white; font-size: 30px; text-align: right; margin-right: 35px;">&times;</a>
-            <div class="menu-items" style="transition: none; text-align: left; margin-left: 20px;">
-                <a href="#!/student" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">STUDENT</a>
-                <a ng-href="#!/subject" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">SUBJECT</a>
-                <a ng-href="#!/enrollment" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">ENROLLMENT</a>
-                <a ng-href="#!/report" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px;">REPORT</a>
-            </div>
+            </form>
+            <form action="/subject" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
+                    SUBJECT
+                </button>
+            </form>
+            <form action="/enrollment" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
+                    ENROLLMENT
+                </button>
+            </form>
+            <form action="/REPORT" method="get">
+                <button type="submit" style="margin-top: 62px; color: white; border: none; background: none; cursor: pointer; letter-spacing: 2px; font-size: 20px">
+                    REPORT
+                </button>
+            </form>
         </div>
     </div>
 
@@ -116,36 +125,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>001</td>
-                        <td>Durano, Dennis</td>
-                        <td>BSCPE</td>
-                        <td>2</td>
-                        <td class="action-buttons">
-                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
-                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Yes, No</td>
-                        <td>BSIT</td>
-                        <td>4</td>
-                        <td class="action-buttons">
-                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
-                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>003</td>
-                        <td>Bravo, Alpha</td>
-                        <td>BSMA</td>
-                        <td>3</td>
-                        <td class="action-buttons">
-                            <button><i class="fas fa-edit" style="color: #009865;"></i> </button>
-                            <button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
-                        </td>
-                    </tr>
+                    <tr ng-repeat="subjects in subjects">
+						<td>{{ subject.edpcode }}</td>
+						<td>{{ subject.subjectcode }}</td>
+						<td>{{ subject.time }}, {{ subject.days}}</td>
+						<td>{{ subject.room }}</td>
+						<td class="action-buttons">
+							<button><i class="fas fa-edit" style="color: #009865;"></i> </button>
+							<button><i class="fas fa-trash-alt" style="color: red;"></i> </button>
+						</td>
+					</tr>
                 </tbody>
             </table>
             <!-- ANGLE DOUBLE BUTTONS -->

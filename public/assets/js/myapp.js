@@ -1,5 +1,13 @@
 var app = angular.module("myapp", ["ngRoute"]);
 
+app.controller("logoutController", function($rootScope, $location) {
+    $rootScope.logout = function() {
+        localStorage.removeItem('user'); 
+        $rootScope.logged = false;
+        $location.path("/"); 
+    };
+});
+
 // LOGIN, MAIN, STUDENT, SUBJECT, ENROLLMENT, REPORT
 app.config(function($routeProvider) {
     $routeProvider
@@ -26,17 +34,24 @@ app.config(function($routeProvider) {
         .otherwise({ redirectTo: '/' });
 });
 
-// LOGIN CONTROLLER
+
+//LOGIN CONTROLLER
 app.controller("loginController", function($scope, $rootScope, $location, $http) {
     $scope.login = function() {
         var email = $scope.email;
         var password = $scope.password;
-        $http.post("/login", { username: email, password: password })
+        
+        // Send POST request to backend for user login
+        $http.post("/api/users/login", { email: email, password: password })
             .then(function(response) {
+                // Login successful
+                $rootScope.logged = true;
                 $rootScope.message = "Login successful!";
                 $location.path("/student"); 
+                
             })
             .catch(function(error) {
+                // Login failed
                 console.log("Error:", error);
                 $rootScope.logged = false;
                 $rootScope.message = "Invalid Credentials. Please try again!";
@@ -44,22 +59,38 @@ app.controller("loginController", function($scope, $rootScope, $location, $http)
     };
 });
 
-// MAIN CONTROLLER
-app.controller("mainController", function($scope, $http, $templateCache) {
-    $http.get('student.html', {cache: $templateCache}).then(function(response) {
-        $scope.studentContent = response.data;
-    });
-    
-});
+/*app.controller("loginController", function($scope, $rootScope, $location, $http) {
+    $scope.login = function() {
+        var email = $scope.email;
+        var password = $scope.password;
+        $http.post("/login", { username: email, password: password })
+            .then(function(response) {
+                $rootScope.logged = true;
+                $rootScope.message = "Login successful!";
+                
+                // Store user login information in local storage
+                localStorage.setItem('user', JSON.stringify({ email: email, password: password }));
+                
+                $location.path("/student"); 
+                
+            })
+            .catch(function(error) {
+                console.log("Error:", error);
+                $rootScope.logged = false;
+                $rootScope.message = "Invalid Credentials. Please try again!";
+            });
+    };
+});*/
+
 
 // STYLE CONTROLLER - SPECIFIC FOR THE HEADER, MENU, CONTENTS
-app.controller("Style", function($scope, $location) {
+app.controller("Style", function($scope,  $location) {
     $scope.isNavOpen = false;
     $scope.sidenavStyle = { width: "0" };
     $scope.mainStyle = { marginLeft: "0" };
     $scope.contentTemplate = 'student.html'; 
 
-    // FUNCTION FOR CLOSE AND OPEN HAMBURGER MENU
+    // FUNCTION FOR CLOSE AND OPEN HAMBURBER MENU
     $scope.toggleNav = function() {
         console.log("Toggling navigation menu...")
         if ($scope.isNavOpen) {
@@ -78,9 +109,9 @@ app.controller("Style", function($scope, $location) {
         document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
         $scope.isNavOpen = true;
 
-        var container = document.querySelector('.container');
-        if (container) {
-            content.style.marginLeft = "200px";
+        var content = document.querySelector('.container');
+        if (content) {
+            content.style.marginLeft = "114px";
         }
     };
 
@@ -93,27 +124,41 @@ app.controller("Style", function($scope, $location) {
         $scope.studentPosition = { marginLeft: "0" };
         $scope.isNavOpen = false;
 
-        var container = document.querySelector('.container');
-        if (container) {
-            container.style.marginLeft = "11%"; 
+        var content = document.querySelector('.container');
+        if (content) {
+            content.style.marginLeft = "11%"; 
         }
     };
 });
 
+// DO NOT REMOVE THIS 
+// IF REMOVED, HAMBURGER MENU WON'T WORK
 // STUDENT CONTROLLER
-app.controller("studentController", function($scope, $http, $templateCache) {
-    $http.get('student.html', {cache: $templateCache}).then(function(response) {
-        $scope.subjectContent = response.data;
-    });
+app.controller("studentController", function($scope, $http) {
+    $http.get("/api/students")
+        .then(function(response) {
+            $scope.students = response.data;
+        })
+        .catch(function(error) {
+            console.error("Error fetching student data:", error);
+        });
 });
+
+
 
 // SUBJECT CONTROLLER
-app.controller("subjectController", function($scope, $http, $templateCache) {
-    $http.get('subject.html', {cache: $templateCache}).then(function(response) {
-        $scope.subjectContent = response.data;
-    });
-
+app.controller("subjectController", function($scope, $http) {
+    // Fetch subjects data from backend API
+    $http.get("/api/subjects")
+        .then(function(response) {
+            // Assign the fetched data to the scope variable
+            $scope.subjects = response.data;
+        })
+        .catch(function(error) {
+            console.error("Error fetching subjects data:", error);
+        });
 });
+
 
 // ENROLLMENT CONTROLLER
 app.controller("enrollmentController", function($scope, $http, $templateCache) {
